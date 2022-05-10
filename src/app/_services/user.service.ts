@@ -5,7 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { TokenStorageService } from './token-storage.service';
 
 
-const API_URL = 'http://localhost:8000/';
+const API_URL = 'http://developer.marakeng.shop/';
 @Injectable({
   providedIn: 'root'
 })
