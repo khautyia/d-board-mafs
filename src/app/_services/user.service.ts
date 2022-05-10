@@ -15,7 +15,7 @@ export class UserService {
 
   constructor(private http: HttpClient, private token: TokenStorageService) { }
   getPublicContent(): Observable<any> {
-    return this.http.get(API_URL + 'all', { responseType: 'text' });
+    return this.http.get(API_URL + 'wp-json/wp/v2/posts', { responseType: 'json' });
   }
   getUserBoard(): Observable<any> {
     return this.http.get(API_URL + 'user', { responseType: 'text' });
