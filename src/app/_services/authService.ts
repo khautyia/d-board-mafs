@@ -15,8 +15,8 @@ export class  AuthService {
   constructor(private http: HttpClient) { }
   baseUrl: string = 'http://localhost:8000/';
 
-  login(loginPayload: any) : Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(this.baseUrl + 'wp-json/jwt-auth/v1/token', loginPayload);
+  login(username: any, password: any) : Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(this.baseUrl + 'wp-json/jwt-auth/v1/token', {username, password});
   }
 
   getUsers() : Observable<ApiResponse> {
@@ -27,12 +27,12 @@ export class  AuthService {
     return this.http.get<ApiResponse>(this.baseUrl + id);
   }
 
-  createUser(user: MarketPrice): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(this.baseUrl, user);
+  createPost(user: any): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(this.baseUrl+'wp-json/wp/v2/posts', user);
   }
 
   updateUser(user: MarketPrice): Observable<ApiResponse> {
-    return this.http.put<ApiResponse>(this.baseUrl + user.id, user);
+    return this.http.put<ApiResponse>(this.baseUrl, user);
   }
 
   deleteUser(id: number): Observable<ApiResponse> {

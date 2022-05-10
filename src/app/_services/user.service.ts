@@ -1,38 +1,34 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, Observer } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { TokenStorageService } from './token-storage.service';
 
-const API_URL = 'http://localhost:8000/wp-json/wp/v2/posts';
 
+const API_URL = 'http://localhost:8000/';
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  constructor(private http: HttpClient) { }
+  
+  
 
+  constructor(private http: HttpClient, private token: TokenStorageService) { }
   getPublicContent(): Observable<any> {
-    return this.http.post(API_URL + '', { responseType: 'json' }).pipe(catchError(this.errorHandler));
+    return this.http.get(API_URL + 'all', { responseType: 'text' });
   }
-
-  createPostContent(): Observable<any> {
-    return this.http.get(API_URL + '', { responseType: 'json' }).pipe(catchError(this.errorHandler));
-  }
-
   getUserBoard(): Observable<any> {
-    return this.http.get(API_URL + '', { responseType: 'json' }).pipe(catchError(this.errorHandler));
+    return this.http.get(API_URL + 'user', { responseType: 'text' });
   }
-
   getModeratorBoard(): Observable<any> {
-    return this.http.get(API_URL + '', { responseType: 'json' }).pipe(catchError(this.errorHandler));
+    return this.http.get(API_URL + 'mod', { responseType: 'text' });
   }
-
   getAdminBoard(): Observable<any> {
-    return this.http.get(API_URL + '', { responseType: 'json' }).pipe(catchError(this.errorHandler));
+    return this.http.get(API_URL + 'admin', { responseType: 'text' });
   }
 
-  getSinglePost(id: any) {
-    const url = `${API_URL}/${id}`;
+  getSinglePost(id: any): Observable<any> {
+    const url = `${API_URL}/wp-json/wp/v2/posts/${id}`;
     console.log(url);
     return this.http.get(url).pipe(catchError(this.errorHandler));
   }
@@ -41,6 +37,15 @@ export class UserService {
     return new Observable((observer: Observer<any>) => {
       observer.error(error)
     })
+  }
+
+  makePost(dt:any): Observable<any> {
+    var datasit = JSON.parse(dt);
+
+    let header = new HttpHeaders().set(
+      "Authorization",`Bearer ${this.token.getToken()}`
+    );
+    return this.http.post<any>(API_URL + 'wp-json/wp/v2/market-prices/', datasit, {headers: header});
   }
 
 }

@@ -23,6 +23,15 @@ import { SinglePostComponent } from './pages/single-post/single-post.component';
 import { ListPostsComponent } from './pages/write-post/list-posts/list-posts.component';
 import { AddPostsComponent } from './pages/write-post/add-posts/add-posts.component';
 import { HttpInterceptProviders } from './_helpers';
+import { ProductFormComponent } from './pages/write-post/product-form/product-form.component';
+import { MatTableModule, MatTableDataSource } from '@angular/material/table';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { CdkTableModule } from '@angular/cdk/table';
+import { Data } from './services/data';
+
 
 @NgModule({
   declarations: [
@@ -37,7 +46,8 @@ import { HttpInterceptProviders } from './_helpers';
     PostsComponent,
     SinglePostComponent,
     ListPostsComponent,
-    AddPostsComponent
+    AddPostsComponent,
+    ProductFormComponent
   ],
   imports: [
     BrowserModule,
@@ -46,9 +56,17 @@ import { HttpInterceptProviders } from './_helpers';
     HttpClientModule,
     NgxSpinnerModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatTableModule,
+    MatCardModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    CdkTableModule,
   ],
-  providers: [AuthService, HttpInterceptProviders],
+  exports: [],
+  providers: [AuthService, HttpInterceptProviders, Data],
   bootstrap: [AppComponent]
 })
 export class AppModule { 

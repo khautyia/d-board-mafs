@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TokenStorageService } from 'src/app/_services/token-storage.service';
 //import '~@coreui/coreui/dist/css/coreui.min.css'
 
 @Component({
@@ -6,30 +7,31 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'/* '~@coreui/coreui/dist/css/coreui.min.css'*/]
 })
-export class HeaderComponent implements OnInit {private roles: string[] = [];
+export class HeaderComponent implements OnInit {
+  private roles: string[] = [];
   isLoggedIn = false;
   showAdminBoard = false;
   showModeratorBoard = false;
   username?: string;
 
-  constructor() { }
+  constructor(private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
-    //this.isLoggedIn = !!this.tokenStorageService.getToken();
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
 
     if (this.isLoggedIn) {
-      //const user = this.tokenStorageService.getUser();
-      //this.roles = user.roles;
+      const user = this.tokenStorageService.getUser();
+      this.roles = user.roles;
 
-      //this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      //this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
+      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+      this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
 
-      //this.username = user.username;
+      this.username = user.username;
     }
   }
 
   logout(): void {
-    //this.tokenStorageService.signOut();
+    this.tokenStorageService.signOut();
     window.location.reload();
   }
 }

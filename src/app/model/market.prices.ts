@@ -1,6 +1,6 @@
 export class MarketPrice {
 
-    id: any;
+    entry: any = [];
   
   }
   
