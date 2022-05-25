@@ -15,6 +15,7 @@ import { WritePostComponent } from './pages/write-post/write-post.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { NgxSpinnerModule } from "ngx-spinner";
 
@@ -30,6 +31,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { CdkTableModule } from '@angular/cdk/table';
+import { MatDialogModule } from '@angular/material/dialog';
 import { Data } from './services/data';
 
 
@@ -64,6 +66,8 @@ import { Data } from './services/data';
     MatIconModule,
     MatInputModule,
     CdkTableModule,
+    MatSnackBarModule,
+    MatDialogModule
   ],
   exports: [],
   providers: [AuthService, HttpInterceptProviders, Data],

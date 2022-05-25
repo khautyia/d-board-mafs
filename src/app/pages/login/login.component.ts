@@ -1,7 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
 import { AuthService } from './../../_services/authService';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
+
+export interface DialogData {
+  animal: string;
+  name: string;
+}
 
 
 
@@ -24,13 +31,13 @@ export class LoginComponent implements OnInit {
   static mycode: string;
 
 
-  constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private router: Router) { }
+  constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private router: Router, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     /*
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
-      this.roles = this.tokenStorage.getUser().roles;
+      this.roles = this.tokenStorage.getUser().roles;<<
     }
     */
     if (this.tokenStorage.getToken()) {
@@ -47,19 +54,25 @@ export class LoginComponent implements OnInit {
     const { username, password } = this.form;
 
     if (this.form.invalid) {
+      alert('invalid input');
       return;
     }
     
     this.authService.login(username, password).subscribe({
       next: data => {
-        this.tokenStorage.saveToken(data.token);
-        this.tokenStorage.saveUser(data);
-        this.isLoginFailed = false;
-        this.isLoggedIn = true;
-        this.roles = this.tokenStorage.getUser().roles;
-        console.log(data);
+        console.log(JSON.stringify(data));
+        if(JSON.parse(JSON.stringify(data)).statusCode === 200) {
 
-        this.router.navigate(['add-post']);
+          this.tokenStorage.saveUser(data);
+          console.log(data);
+          this.isLoginFailed = false;
+          this.isLoggedIn = true;
+          this.roles = this.tokenStorage.getUser();
+          this.tokenStorage.saveToken(JSON.parse(this.tokenStorage.getUser()).data.token);
+          // for debuging purposes very helpful : console.log(JSON.parse(this.tokenStorage.getUser()).data.token);
+          //this.reloadPage();
+          this.router.navigate(['add-post']);
+        } else { alert('Check if you have entered the correct username or password') }
       },
       error: err => {
         this.errorMessage = err.error.message;
@@ -92,6 +105,30 @@ export class LoginComponent implements OnInit {
 
   public static getToken(){ 
     return this.mycode;
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+      width: '250px',
+      data: {name: 'bluh', animal: 'bluh'}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      //this.animal = result;
+    });
+  }
+
+}
+
+export class DialogOverviewExampleDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }

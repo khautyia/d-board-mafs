@@ -56,8 +56,24 @@ export class ProductFormComponent {
     );
   }
 
+  private deleteRow() {
+    const rows = this.productControlArray;
+    if(this.productControlArray.length === 1) { 
+      // console.log('less ');
+      return
+    } else {
+      rows.removeAt(this.productControlArray.length - 1);
+    }
+    console.log(typeof rows);
+  }
+
   createRow() {
     this.addRow();
+    this.table.renderRows();
+  }
+
+  removeRow() {
+    this.deleteRow();
     this.table.renderRows();
   }
 

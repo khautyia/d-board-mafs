@@ -6,21 +6,12 @@
           <li class="nav-item">
             <a href="/home" class="nav-link" routerLink="home">Home </a>
           </li>
-          <li class="nav-item" *ngIf="showAdminBoard">
-            <a href="/admin" class="nav-link" routerLink="admin">Admin Board</a>
-          </li>
-          <li class="nav-item" *ngIf="showModeratorBoard">
-            <a href="/mod" class="nav-link" routerLink="mod">Moderator Board</a>
-          </li>
           <li class="nav-item">
-            <a href="/user" class="nav-link" *ngIf="isLoggedIn" routerLink="user">User</a>
+            <a href="/add-post" class="nav-link" *ngIf="isLoggedIn" routerLink="add-post">Add Market Price</a>
           </li>
         </ul>
     
         <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
-          <li class="nav-item">
-            <a href="/register" class="nav-link" routerLink="register">Sign Up</a>
-          </li>
           <li class="nav-item">
             <a href="/login" class="nav-link" routerLink="login">Login</a>
           </li>

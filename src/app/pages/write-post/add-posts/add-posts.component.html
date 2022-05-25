@@ -7,10 +7,17 @@
 <div class="row">
   <div class="col-md-6 mx-auto">
     <div class="form-group text-right">
-      <label class="block mb-2 text-sm font-bold text-gray-700">
-        Upload from file
-        <button type="submit" class="btn btn-primary mr-1">upload</button>
-      </label>
+      <div class="file-upload"> {{ '' || ''}}
+        <!--input mat-mini-fab color="primary" type="file"
+        id="file"
+        multiple="false"
+        accept=".xlsx"
+        (change)="handleFileInput($event)" 
+        class="btn btn-outline-primary btn-sm"
+        #fileUpload-->
+          <mat-icon>attach_file</mat-icon>
+      </div>
+
     </div>
     <div class="card">
       <div class="card-header">
@@ -30,3 +37,7 @@
     </div>
   </div>
 </div>
+<!--p>
+  Values: {{ products.value | json }}<br />
+  Form valid: {{ products.status }}
+</p-->

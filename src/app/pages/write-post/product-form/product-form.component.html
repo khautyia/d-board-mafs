@@ -1,4 +1,4 @@
-<form [formGroup]="form" (mouseout)="onDatapicked()">
+<form [formGroup]="form" (mouseout)="onDatapicked()" >
 
     <mat-card class="mat-elevation-z8">
   
@@ -17,7 +17,8 @@
                 <input matInput placeholder="Product"
                   id="product_id_{{i}}"
                   name="product_id_{{i}}"
-                  formControlName="product_id" required 
+                  formControlName="product_id"
+                  required
                   />
               </mat-form-field>
             </ng-container>
@@ -34,7 +35,8 @@
                 <input matInput placeholder="Unit"
                   id="product_id_{{i}}"
                   name="product_id_{{i}}"
-                  formControlName="unit" required 
+                  formControlName="unit"
+                  required
                   />
               </mat-form-field>
             </ng-container>
@@ -51,7 +53,7 @@
                 <input matInput placeholder="price"
                   id="product_id_{{i}}"
                   name="product_id_{{i}}"
-                  formControlName="price" required 
+                  formControlName="price" 
                   />
               </mat-form-field>
             </ng-container>
@@ -68,11 +70,23 @@
       </mat-table>
   
       <mat-card-actions>
-        <button mat-raised-button class="btn btn-outline-danger btn-sm" color="primary"
+        <button mat-raised-button class="btn btn-outline-primary btn-sm" color="primary"
           (click)="createRow()">
           <mat-icon>add</mat-icon>
-          Add New
+        </button>
+      </mat-card-actions>
+      <mat-card-actions>
+        <button mat-fab class="btn btn-outline-secondary btn-sm" color="primary"
+          (click)="removeRow()">
+          <mat-icon>remove</mat-icon>
         </button>
       </mat-card-actions>
     </mat-card>
+    <div class="alert alert-danger"
+      role="alert" 
+      *ngIf="">Product name is required</div>
+    <div *ngIf="">Price is required</div>
+      <div *ngIf="">
+        Password must be at least 6 characters
+      </div>
   </form>

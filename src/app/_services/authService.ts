@@ -28,7 +28,7 @@ export class  AuthService {
   }
 
   createPost(user: any): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(this.baseUrl+'wp-json/wp/v2/posts', user);
+    return this.http.post<ApiResponse>(this.baseUrl+'wp-json/wp/v2/market-prices', user);
   }
 
   updateUser(user: MarketPrice): Observable<ApiResponse> {

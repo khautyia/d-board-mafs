@@ -40,7 +40,7 @@ export class UserService {
   }
 
   makePost(dt:any): Observable<any> {
-    var datasit = JSON.parse(dt);
+    var datasit = dt; //JSON.parse(dt);
 
     let header = new HttpHeaders().set(
       "Authorization",`Bearer ${this.token.getToken()}`
