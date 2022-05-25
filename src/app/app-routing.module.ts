@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'posts/:id', component: SinglePostComponent },
   //{ path: '**', redirectTo: 'posts', pathMatch: 'full' },
   { path: 'write-post', component: WritePostComponent },
-  { path: 'add-post', component: AddPostsComponent}// , canActivate: [AuthGuard] },
+  { path: 'add-post', component: AddPostsComponent},// , canActivate: [AuthGuard] },
   { path: 'list-post', component: ListPostsComponent }
 ];
 
