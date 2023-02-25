@@ -1,5 +1,6 @@
-# d-board-mafs 1
-# d-board-mafs 2
+# MarketPricesDashboard
+MarketPricesDashboard
+
 Farmer's Information Dashboard for Ministry of Agriculture &amp; Food Security for Marakeng Upgrade 
 # d-board-mafs
 
@@ -66,3 +67,4 @@ $.ajax(settings).done(function (response) {
   console.log(response);
 });
 ```
+
