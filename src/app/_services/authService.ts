@@ -13,7 +13,7 @@ const httpOptions = {
 export class  AuthService {
 
   constructor(private http: HttpClient) { }
-  baseUrl: string = 'https://developer.marakeng.shop/';
+  baseUrl: string = 'http://localhost/wordpress/';
 
   login(username: any, password: any) : Observable<ApiResponse> {
     return this.http.post<ApiResponse>(this.baseUrl + 'wp-json/jwt-auth/v1/token', {username, password});
