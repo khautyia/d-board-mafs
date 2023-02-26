@@ -46,10 +46,6 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  goToItems() {
-    
-  }
-
   onSubmit(): void {
     const { username, password } = this.form;
 
@@ -60,75 +56,19 @@ export class LoginComponent implements OnInit {
     
     this.authService.login(username, password).subscribe({
       next: data => {
-        console.log(JSON.stringify(data));
-        if(JSON.parse(JSON.stringify(data)).statusCode === 200) {
-
+          this.tokenStorage.saveToken(data.token);
           this.tokenStorage.saveUser(data);
-          console.log(data);
           this.isLoginFailed = false;
           this.isLoggedIn = true;
-          this.roles = this.tokenStorage.getUser();
-          this.tokenStorage.saveToken(JSON.parse(this.tokenStorage.getUser()).data.token);
-          // for debuging purposes very helpful : console.log(JSON.parse(this.tokenStorage.getUser()).data.token);
-          //this.reloadPage();
+          this.roles = this.tokenStorage.getUser().roles;
+          console.log(data);
+  
           this.router.navigate(['add-post']);
-        } else { alert('Check if you have entered the correct username or password') }
-      },
-      error: err => {
-        this.errorMessage = err.error.message;
-        this.isLoginFailed = true;
-      }
-    });
-
-   /*this.authService.login(username, password).subscribe({
-      next: data => {
-        this.tokenStorage.saveToken(data.accessToken);
-        this.tokenStorage.saveUser(data);
-        console.log(data);
-        console.log(this.tokenStorage);
-        this.isLoginFailed = false;
-        this.isLoggedIn = true;
-        this.roles = this.tokenStorage.getUser().roles;
-        // this.reloadPage();
-        this.router.navigateByUrl('/write-post');
-      },
-      error: err => {
-        this.errorMessage = err.error.message;
-        this.isLoginFailed = true;
-      }
-    });*/
-  }
-
-  reloadPage(): void {
-    window.location.reload();
-  }
-
-  public static getToken(){ 
-    return this.mycode;
-  }
-
-  openDialog(): void {
-    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-      width: '250px',
-      data: {name: 'bluh', animal: 'bluh'}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      //this.animal = result;
+        },
+        error: err => {
+          this.errorMessage = err.error.message;
+          this.isLoginFailed = true;
+        }
     });
   }
-
-}
-
-export class DialogOverviewExampleDialog {
-
-  constructor(
-    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
 }
